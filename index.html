@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090d0c">
+  <meta name="description" content="Empire Terminal — a minimalist tap-to-earn business tycoon.">
+  <title>EMPIRE TERMINAL</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="loading" class="loading-screen" aria-live="polite">
+    <div class="boot-mark">ET<span>_</span></div>
+    <p>INITIALIZING EMPIRE SYSTEM</p>
+    <div class="load-track"><div id="load-progress"></div></div>
+    <small id="load-status">Loading company records...</small>
+  </div>
+
+  <div id="game" class="app hidden">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">PRIVATE CORPORATE NETWORK <span class="online-dot"></span></div>
+        <h1>EMPIRE<span>_</span>TERMINAL</h1>
+      </div>
+      <button id="sound-toggle" class="icon-button" aria-label="Toggle sound" title="Toggle sound">♪ <span id="sound-state">OFF</span></button>
+    </header>
+
+    <main>
+      <section class="panel balance-panel">
+        <div class="section-head"><span>AVAILABLE CAPITAL</span><span id="save-indicator">● SAVED</span></div>
+        <div id="cash" class="cash">$0</div>
+        <div class="stats-grid">
+          <div><span class="muted">PER TAP</span><strong id="tap-rate">$1</strong></div>
+          <div><span class="muted">PASSIVE INCOME</span><strong id="passive-rate">$0/s</strong></div>
+          <div><span class="muted">NET WORTH</span><strong id="net-worth">$0</strong></div>
+          <div><span class="muted">COMPANY LEVEL</span><strong id="level">1</strong></div>
+        </div>
+        <button id="tap-button" class="tap-button">
+          <span class="tap-symbol">[ + ]</span>
+          <strong>GENERATE REVENUE</strong>
+          <small>Tap here to earn capital</small>
+        </button>
+        <div class="progress-label"><span>EMPIRE PROGRESS</span><span id="progress-text">0 / 1,000</span></div>
+        <div class="progress-track"><div id="progress-bar"></div></div>
+      </section>
+
+      <nav class="tabs" aria-label="Game sections">
+        <button class="tab active" data-tab="overview">Overview</button>
+        <button class="tab" data-tab="business">Businesses</button>
+        <button class="tab" data-tab="story">Story <span id="story-badge" class="badge hidden">!</span></button>
+        <button class="tab" data-tab="records">Records</button>
+      </nav>
+
+      <section id="view-overview" class="view">
+        <div class="section-title"><span class="prompt">&gt;_</span> EXECUTIVE DASHBOARD</div>
+        <div class="two-cards">
+          <article class="panel small-panel"><span class="muted">TOTAL TAPS</span><strong id="total-taps">0</strong><small>Every empire starts somewhere.</small></article>
+          <article class="panel small-panel"><span class="muted">BUSINESSES OWNED</span><strong id="business-count">0</strong><small>Build income that works for you.</small></article>
+        </div>
+        <article class="panel">
+          <div class="section-head"><span>DAILY INTEL</span><span class="muted">LIVE FEED</span></div>
+          <p id="intel-text" class="story-copy">Your company is small. Your ambition does not have to be.</p>
+          <button id="intel-button" class="secondary-button">REQUEST MARKET INTEL</button>
+        </article>
+        <article class="panel">
+          <div class="section-head"><span>QUICK UPGRADES</span><span class="muted">INVEST IN YOURSELF</span></div>
+          <div id="quick-upgrades" class="upgrade-list"></div>
+        </article>
+      </section>
+
+      <section id="view-business" class="view hidden">
+        <div class="section-title"><span class="prompt">&gt;_</span> BUSINESS NETWORK</div>
+        <p class="muted intro">Acquire companies to generate passive income. Earnings accrue while the game is open and for a limited time while you're away.</p>
+        <div id="business-list" class="business-list"></div>
+      </section>
+
+      <section id="view-story" class="view hidden">
+        <div class="section-title"><span class="prompt">&gt;_</span> COMPANY CHRONICLES</div>
+        <article id="story-card" class="panel story-panel">
+          <div class="story-tag">CONFIDENTIAL // DECISION REQUIRED</div>
+          <h2 id="story-title">A Small Beginning</h2>
+          <p id="story-text" class="story-copy"></p>
+          <div id="story-choices" class="choice-list"></div>
+          <p id="story-result" class="muted"></p>
+        </article>
+        <article class="panel">
+          <div class="section-head"><span>DECISION HISTORY</span></div>
+          <div id="decision-history" class="history-list"></div>
+        </article>
+      </section>
+
+      <section id="view-records" class="view hidden">
+        <div class="section-title"><span class="prompt">&gt;_</span> ACHIEVEMENTS & RECORDS</div>
+        <article class="panel">
+          <div class="section-head"><span>ACHIEVEMENTS</span><span id="achievement-count">0 / 8</span></div>
+          <div id="achievement-list" class="achievement-list"></div>
+        </article>
+        <article class="panel">
+          <div class="section-head"><span>SYSTEM RECORDS</span></div>
+          <div id="record-list" class="record-list"></div>
+          <button id="export-button" class="secondary-button">EXPORT SAVE CODE</button>
+          <button id="reset-button" class="danger-button">RESET COMPANY</button>
+        </article>
+      </section>
+    </main>
+    <footer><span>EMPIRE TERMINAL v1.0</span><span>LOCAL SAVE ACTIVE</span></footer>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div class="eyebrow">SYSTEM MESSAGE</div>
+      <h2 id="modal-title">Export save</h2>
+      <p id="modal-text"></p>
+      <textarea id="save-code" class="save-code hidden" readonly></textarea>
+      <div class="modal-actions"><button id="modal-copy" class="primary-button hidden">COPY CODE</button><button id="modal-close" class="secondary-button">CLOSE</button></div>
+    </div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
